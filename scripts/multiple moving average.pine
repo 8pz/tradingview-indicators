@@ -1,0 +1,34 @@
+//@version=5
+indicator("Multiple Moving Average", overlay = true)
+
+showMA_1 = input(true, title = "", group = "Moving Averages", inline = "ma1")
+ma_type_1 = input.string("EMA", title="Type", options=["SMA", "EMA", "WMA", "HMA", "RMA", "VWMA", "VWAP"], group='Moving Averages', inline = "ma1")
+length_1 = input.int(19, title="Length", group='Moving Averages', inline = "ma1")
+
+showMA_2 = input(true, title = "", group = "Moving Averages", inline = "ma2")
+ma_type_2 = input.string("EMA", title="Type", options=["SMA", "EMA", "WMA", "HMA", "RMA", "VWMA", "VWAP"], group='Moving Averages', inline = "ma2")
+length_2 = input.int(200, title="Length", group='Moving Averages', inline = "ma2")
+
+showMA_3 = input(false, title = "", group = "Moving Averages", inline = "ma3")
+ma_type_3 = input.string("EMA", title="Type", options=["SMA", "EMA", "WMA", "HMA", "RMA", "VWMA", "VWAP"], group='Moving Averages', inline = "ma3")
+length_3 = input.int(1, title="Length", group='Moving Averages', inline = "ma3")
+
+showMA_4 = input(false, title = "", group = "Moving Averages", inline = "ma4")
+ma_type_4 = input.string("EMA", title="Type", options=["SMA", "EMA", "WMA", "HMA", "RMA", "VWMA", "VWAP"], group='Moving Averages', inline = "ma4")
+length_4 = input.int(1, title="Length", group='Moving Averages', inline = "ma4")
+
+showMA_5 = input(false, title = "", group = "Moving Averages", inline = "ma5")
+ma_type_5 = input.string("EMA", title="Type", options=["SMA", "EMA", "WMA", "HMA", "RMA", "VWMA", "VWAP"], group='Moving Averages', inline = "ma5")
+length_5 = input.int(1, title="Length", group='Moving Averages', inline = "ma5")
+
+ma_1 = ma_type_1 == "SMA" ? ta.sma(close, length_1) : ma_type_1 == "EMA" ? ta.ema(close, length_1) : ma_type_1 == "WMA" ? ta.wma(close, length_1) : ma_type_1 == "HMA" ? ta.hma(close, length_1) : ma_type_1 == "RMA" ? ta.rma(close, length_1) : ma_type_1 == "VWMA" ? ta.vwma(close, length_1) : ta.vwap(close, length_1)
+ma_2 = ma_type_2 == "SMA" ? ta.sma(close, length_2) : ma_type_2 == "EMA" ? ta.ema(close, length_2) : ma_type_2 == "WMA" ? ta.wma(close, length_2) : ma_type_2 == "HMA" ? ta.hma(close, length_2) : ma_type_2 == "RMA" ? ta.rma(close, length_2) : ma_type_2 == "VWMA" ? ta.vwma(close, length_2) : ta.vwap(close, length_2)
+ma_3 = ma_type_3 == "SMA" ? ta.sma(close, length_3) : ma_type_3 == "EMA" ? ta.ema(close, length_3) : ma_type_3 == "WMA" ? ta.wma(close, length_3) : ma_type_3 == "HMA" ? ta.hma(close, length_3) : ma_type_3 == "RMA" ? ta.rma(close, length_3) : ma_type_3 == "VWMA" ? ta.vwma(close, length_3) : ta.vwap(close, length_3)
+ma_4 = ma_type_4 == "SMA" ? ta.sma(close, length_4) : ma_type_4 == "EMA" ? ta.ema(close, length_4) : ma_type_4 == "WMA" ? ta.wma(close, length_4) : ma_type_4 == "HMA" ? ta.hma(close, length_4) : ma_type_4 == "RMA" ? ta.rma(close, length_4) : ma_type_4 == "VWMA" ? ta.vwma(close, length_4) : ta.vwap(close, length_4)
+ma_5 = ma_type_5 == "SMA" ? ta.sma(close, length_5) : ma_type_5 == "EMA" ? ta.ema(close, length_5) : ma_type_5 == "WMA" ? ta.wma(close, length_5) : ma_type_5 == "HMA" ? ta.hma(close, length_5) : ma_type_5 == "RMA" ? ta.rma(close, length_5) : ma_type_5 == "VWMA" ? ta.vwma(close, length_5) : ta.vwap(close, length_5)
+
+plot(ma_1, title="MA 1", color=#b2ebf2, linewidth=1, display = showMA_1 ? display.all : display.none)
+plot(ma_2, title="MA 2", color=#e1bee7, linewidth=1, display = showMA_2 ? display.all : display.none)
+plot(ma_3, title="MA 3", color=color.green, linewidth=1, display = showMA_3 ? display.all : display.none)
+plot(ma_4, title="MA 4", color=color.orange, linewidth=1, display = showMA_4 ? display.all : display.none)
+plot(ma_5, title="MA 5", color=color.purple, linewidth=1, display = showMA_5 ? display.all : display.none)
