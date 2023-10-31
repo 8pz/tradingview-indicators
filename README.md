@@ -23,4 +23,4 @@ an copy of [aurora trading's supply and demand zones](https://whop.com/aurora-tr
 
 all scripts under this project is listed under: **CC BY-NC 4.0**
 
-please contact me at @onasn on tele for commercial use
+contact me @onasn on tele for commercial use
