@@ -21,6 +21,6 @@ an copy of [aurora trading's supply and demand zones](https://whop.com/aurora-tr
 
 # copyright
 
-this project is listed under **CC BY-NC 4.0**
+this project is listed under: **CC BY-NC 4.0**
 
-please contact me for commercial use
+please contact me at @onasn on tele for commercial use
