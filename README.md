@@ -1,3 +1,6 @@
+# overview
+all the scripts i use on tradingview completely made by me. please update me with issues/solutions to any issues you have found. i do not upload these on tradingview as i do not pay for premium.
+
 # how to use
 
 follow the steps (1-4) and paste the script in
