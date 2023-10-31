@@ -18,3 +18,9 @@ an copy of [aurora trading's supply and demand zones](https://whop.com/aurora-tr
 
 ![image](https://github.com/8pz/tradingview-scripts/assets/70970973/a5e607a9-e4a8-4bb5-82f4-a3f1b23065fb)
 **WARNING:** ZONES DO NOT CURRENTLY UPDATE LIVE RIGHT NOW. PLEASE REFRESH YOUR PAGE TO GET UPDATED ZONES. WORKING ON A FIX
+
+# copyright
+
+this project is listed under **CC BY-NC 4.0**
+
+please contact me for commercial use
