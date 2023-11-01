@@ -14,7 +14,7 @@ a simple script to plot 5 different moving averages. adding vwap soon
 
 
 ### [supply and demand zones](https://github.com/8pz/tradingview-scripts/blob/main/scripts/supply%20and%20demand.pine): 
-an copy of [aurora trading's supply and demand zones](https://whop.com/aurora-trading/?pass=prod_aIIc8AIh5rTk0). pretty much the same thing but missing a few features. (in development)
+an "copy" of [aurora trading's supply and demand zones](https://whop.com/aurora-trading/?pass=prod_aIIc8AIh5rTk0). a script based off the same supply and demand concept by bryce. 
 
 ![image](https://github.com/8pz/tradingview-scripts/assets/70970973/a5e607a9-e4a8-4bb5-82f4-a3f1b23065fb)
 **WARNING:** ZONES DO NOT CURRENTLY UPDATE LIVE RIGHT NOW. PLEASE REFRESH YOUR PAGE TO GET UPDATED ZONES. WORKING ON A FIX
