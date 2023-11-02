@@ -24,5 +24,3 @@ an "copy" of [aurora trading's supply and demand zones](https://whop.com/aurora-
 This work is licensed under: **CC-BY-NC**
 
 Contact @ onasn on telegram for commercial use
-
-Legal actions will be taken against users that attempt to sell any work under this project
