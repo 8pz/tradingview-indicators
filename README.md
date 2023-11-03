@@ -6,7 +6,7 @@ all the scripts i use on tradingview completely made by me. please update me wit
 follow the steps (1-4) and paste the script in
 ![image](https://github.com/8pz/tradingview-scripts/assets/70970973/b0e9d1bf-55da-4ab4-a3df-6396d7b980a4)
 
-# indicators
+# Indicators
 ### [Multiple Moving Average](https://github.com/8pz/tradingview-scripts/blob/main/scripts/multiple%20moving%20average.pine) 
 A simple script to plot 5 different moving averages. (SMA, EMA, WMA, HMA, RMA, VWMA, VWAP)
 
