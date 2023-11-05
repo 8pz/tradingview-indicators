@@ -1,9 +1,6 @@
-# Overview
-all the scripts i use on tradingview completely made by me. please update me with issues/solutions to any issues you have found. i do not upload these on tradingview as i do not pay for premium.
-
 # How to use
 
-follow the steps (1-4) and paste the script in
+Follow the steps 1 to 4.
 
 ![image](https://github.com/8pz/tradingview-scripts/assets/70970973/b0e9d1bf-55da-4ab4-a3df-6396d7b980a4)
 
@@ -23,7 +20,7 @@ A "copy" of [aurora trading's supply and demand zones](https://whop.com/aurora-t
 
 # Disclaimer
 
-I do not provide financial advice - our indicator and strategies are intended to provide only source code for anyone interested in improving their trading.
+I do not provide financial advice - my indicator and strategies are intended to provide only source code for anyone interested in improving their trading.
 
 # License
 
