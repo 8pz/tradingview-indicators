@@ -4,6 +4,7 @@ all the scripts i use on tradingview completely made by me. please update me wit
 # How to use
 
 follow the steps (1-4) and paste the script in
+
 ![image](https://github.com/8pz/tradingview-scripts/assets/70970973/b0e9d1bf-55da-4ab4-a3df-6396d7b980a4)
 
 # Indicators
@@ -17,10 +18,19 @@ A simple script to plot 5 different moving averages. (SMA, EMA, WMA, HMA, RMA, V
 A "copy" of [aurora trading's supply and demand zones](https://whop.com/aurora-trading/?pass=prod_aIIc8AIh5rTk0). A script based off the same supply and demand concept by Bryce. 
 
 ![image](https://github.com/8pz/tradingview-scripts/assets/70970973/a5e607a9-e4a8-4bb5-82f4-a3f1b23065fb)
+
 **WARNING:** Zones are not updated live due to a bug. Refresh your page/script for newer zones to show.
+
+# Disclaimer
+
+I do not provide financial advice - our indicator and strategies are intended to provide only source code for anyone interested in improving their trading.
 
 # License
 
-This work is licensed under: **CC-BY-NC**
+The project is licensed under: **CC-NY-BC**
 
-Contact @ onasn on telegram for commercial use
+Contact me for commercial use
+
+- discord @ 123781023
+- tele @ onasn
+- email @ 123781023@proton.me
