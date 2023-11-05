@@ -1,9 +1,3 @@
-# How to use
-
-Follow the steps 1 to 4.
-
-![image](https://github.com/8pz/tradingview-scripts/assets/70970973/b0e9d1bf-55da-4ab4-a3df-6396d7b980a4)
-
 # Indicators
 ### [Multiple Moving Average](https://github.com/8pz/tradingview-scripts/blob/main/scripts/multiple%20moving%20average.pine) 
 A simple script to plot 5 different moving averages. (SMA, EMA, WMA, HMA, RMA, VWMA, VWAP)
@@ -12,11 +6,18 @@ A simple script to plot 5 different moving averages. (SMA, EMA, WMA, HMA, RMA, V
 
 
 ### [Supply and Demand Zones](https://github.com/8pz/tradingview-scripts/blob/main/scripts/supply%20and%20demand.pine)
-A "copy" of [aurora trading's supply and demand zones](https://whop.com/aurora-trading/?pass=prod_aIIc8AIh5rTk0). A script based off the same supply and demand concept by Bryce. 
+A "copy" of [Aurora Trading's Supply and Demand zones](https://whop.com/aurora-trading/?pass=prod_aIIc8AIh5rTk0). A script based off the same supply and demand concept by Bryce. 
 
 ![image](https://github.com/8pz/tradingview-scripts/assets/70970973/a5e607a9-e4a8-4bb5-82f4-a3f1b23065fb)
 
 **WARNING:** Zones are not updated live due to a bug. Refresh your page/script for newer zones to show.
+
+# Setup
+
+Follow the steps 1 to 4.
+
+![image](https://github.com/8pz/tradingview-scripts/assets/70970973/b0e9d1bf-55da-4ab4-a3df-6396d7b980a4)
+
 
 # Disclaimer
 
