@@ -14,7 +14,10 @@ A "copy" of [Aurora Trading's Supply and Demand zones](https://whop.com/aurora-t
 
 # Setup
 
-Follow the steps 1 to 4.
+1. Open "Pine Editor"
+2. Open the dropdown called "Open"
+3. Click "New indicator"
+4. Paste the script in and press "Add to chart"
 
 ![image](https://github.com/8pz/tradingview-scripts/assets/70970973/b0e9d1bf-55da-4ab4-a3df-6396d7b980a4)
 
