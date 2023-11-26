@@ -6,7 +6,7 @@ A simple script to plot 5 different moving averages. (SMA, EMA, WMA, HMA, RMA, V
 
 
 ### [Supply and Demand Zones](https://github.com/8pz/tradingview-scripts/blob/main/scripts/supply%20and%20demand.pine)
-A "copy" of [Aurora Trading's Supply and Demand zones](https://whop.com/aurora-trading/?pass=prod_aIIc8AIh5rTk0). A script based off the same supply and demand concept by Bryce. 
+A replica of [Aurora Trading's Supply and Demand zones](https://whop.com/aurora-trading/?pass=prod_aIIc8AIh5rTk0). A script based off the same supply and demand concept by Bryce. 
 
 ![image](https://github.com/8pz/tradingview-scripts/assets/70970973/a5e607a9-e4a8-4bb5-82f4-a3f1b23065fb)
 

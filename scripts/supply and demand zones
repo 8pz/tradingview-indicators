@@ -4,9 +4,7 @@ indicator("Supply and Demand Zones", shorttitle="S&D Zones", overlay=true, max_b
 //inputs
 candleDifferenceScale = input.float(defval = 2, minval = 1, title = 'Zone Difference Scale', tooltip = 'The scale of how much a candle needs to be larger than a previous to be considered a zone. (candleChange / candleChange[1] > {value}, minimum value 1.00, default 2.0)', group = 'Zone Settings')
 
-zoneOffset = input.int(defval = 30, minval = 0, title="Zone Extension", group = 'Display Settings', tooltip = 'How much to extend zones to the right of latest bar. (In bars)')
-// filterRangeTF = input(false, title = "", group = "Display Settings", inline = "filter")
-// filterRange = input.int(defval = 7, minval = 1, title="Filter Percentage", group='Display Settings', tooltip = 'Only show zones a % above and below current price', inline = "filter")
+zoneOffset = input.int(defval = 15, minval = 0, title="Zone Extension", group = 'Display Settings', tooltip = 'How much to extend zones to the right of latest bar. (In bars)')
 displayLowerTFZones = input.bool(false, title="Display Lower Timeframe Zones", group = 'Display Settings', tooltip = 'Whether to or not to display zones from a lower timeframe. ie. 2h zones on 4h timeframe (Recommended OFF).')
 
 supplyEnable = input(true, title = "Enable Supply Zones", group = "Zone Personalization")
@@ -25,14 +23,6 @@ halign = input.string("Right", title="Horizontal Alignment", options=["Left", "C
 supplyValign = input.string("Bottom", title="Vertical Alignment (Supply)", options=["Top", "Center", "Bottom"], group = 'Text Settings')
 demandValign = input.string("Top", title="Vertical Alignment (Demand)", options=["Top", "Center", "Bottom"], group = 'Text Settings')
 
-// gapEnable = input(true, title = "Enable Gaps", group = "Gap Settings")
-// gapColor = input.color(defval = color.rgb(120, 123, 134, 94), title = 'Gap Background Color', group = 'Gap Settings')
-// gapBorderColor = input.color(defval = color.rgb(209, 212, 220, 80), title = 'Gap Border Color', group = 'Gap Settings')
-// minimalDeviationTooltip = "Specifies the minimal size of detected gaps, as a percentage of the average high-low range for the last 14 bars."
-// minimalDeviationInput = nz(input.float(30.0, "Minimal Deviation (%)", tooltip = minimalDeviationTooltip, minval=1, maxval=100) / 100 * ta.sma(high-low, 14))
-
-// displayForming = input.bool(false, title="Show Forming Zones", group = 'Timeframe Options')
-display15m = input.bool(false, title="Show 15m Zones", group = 'Timeframe Options')
 display30m = input.bool(true, title="Show 30m Zones", group = 'Timeframe Options')
 display45m = input.bool(true, title="Show 45m Zones", group = 'Timeframe Options')
 display1h = input.bool(true, title="Show 1h Zones", group = 'Timeframe Options')
@@ -58,7 +48,7 @@ if currentTimeframe == 'W'
 if displayLowerTFZones
     currentTimeframe := '1'
 
-momentCTD = timestamp(YearCTD, monthCTD, dateCTD, hourCTD, minuteCTD) + (zoneOffset * 60000)
+momentCTD = math.round(timestamp(YearCTD, monthCTD, dateCTD, hourCTD, minuteCTD) + (zoneOffset * 60000 * str.tonumber(currentTimeframe)))
 
 if textSize == 'Auto'
     textSize := size.auto
@@ -94,10 +84,8 @@ if demandValign == 'Center'
 if demandValign == 'Top'
     demandValign := text.align_top
 
-var box[] gaps = array.new_box()
-
-isGapDown = high < low[1] and low[1] - high >= minimalDeviationInput
-isGapUp = low > high[1] and low - high[1] >= minimalDeviationInput
+var box[] supply_HT = array.new_box()
+var box[] demand_HT = array.new_box()
 
 //plotting zones
 
@@ -133,15 +121,13 @@ createSupplyDemandZones(timeframe) =>
 
     redCandle_HT = close_HT < open_HT
     greenCandle_HT = close_HT > open_HT
+    neutralCandle_HT = close_HT == open_HT
     candleChange_HT = math.abs(close_HT - open_HT)
-
-    var box[] supply_HT = array.new_box()
-    var box[] demand_HT = array.new_box()
 
     var float bottomBox_HT = na
     var float topBox_HT = na
 
-    if (redCandle_HT and greenCandle_HT[1] and (candleChange_HT / candleChange_HT[1]) > candleDifferenceScale and barstate_HT and open_HT[1] <= open_HT and supplyEnable)
+    if (((redCandle_HT and greenCandle_HT[1]) or (redCandle_HT and neutralCandle_HT[1])) and (candleChange_HT / candleChange_HT[1]) >= candleDifferenceScale and barstate_HT and supplyEnable and close_HT[1] >= close_HT)
         if high_HT >= high_HT[1]
             topBox_HT := high_HT
         else 
@@ -160,23 +146,9 @@ createSupplyDemandZones(timeframe) =>
             box.set_text_color(supply, textColor)
             box.set_text_halign(supply, halign)
             box.set_text_valign(supply, supplyValign)
-            
         array.push(supply_HT, supply)
 
-    int qty = array.size(supply_HT)
-    for i = 0 to (qty > 0 ? qty - 1 : na)
-        if i < array.size(supply_HT)
-            box currentBox = array.get(supply_HT, i)
-            float breakLevel = box.get_top(currentBox)
-            if high > breakLevel
-                array.remove(supply_HT, i)
-                box.delete(currentBox)
-                int(na)
-            else
-                box.set_right(currentBox, momentCTD)
-                int(na)
-
-    if (greenCandle_HT and redCandle_HT[1] and (candleChange_HT / candleChange_HT[1]) > candleDifferenceScale and barstate_HT and open_HT[1] >= open_HT and demandEnable)
+    if (((greenCandle_HT and redCandle_HT[1]) or (greenCandle_HT and neutralCandle_HT[1])) and (candleChange_HT / candleChange_HT[1]) >= candleDifferenceScale and barstate_HT and demandEnable and close_HT[1] <= close_HT)
         if low_HT <= low_HT[1]
             bottomBox_HT := low_HT
         else 
@@ -197,52 +169,8 @@ createSupplyDemandZones(timeframe) =>
             box.set_text_valign(demand, demandValign)
         array.push(demand_HT, demand)
 
-    int qty2 = array.size(demand_HT)
-    for i = 0 to (qty2 > 0 ? qty2 - 1 : na)
-        if i < array.size(demand_HT)
-            box currentBox = array.get(demand_HT, i)
-            float breakLevel = box.get_bottom(currentBox)
-            if low < breakLevel
-                array.remove(demand_HT, i)
-                box.delete(currentBox)
-                int(na)
-            else
-                box.set_right(currentBox, momentCTD)
-                int(na)
-
-// plottings gap (WIP)
-
-// if (gapEnable and (isGapDown or isGapUp))
-//     if displayHL
-//         timeframeFormatted := '\nTop: ' + str.tostring(open_HT[1]) + '\nBottom: ' + str.tostring(bottomBox_HT)
-
-//     box gap = box.new(lefttime, top=open_HT[1], right=momentCTD, bottom=bottomBox_HT, bgcolor=gapColor, xloc=xloc.bar_time)
-//     box.set_border_color(gap, gapBorderColor)
-//     if textEnable
-//         box.set_text(gap, timeframeFormatted)
-//         box.set_text_size(gap, textSize)
-//         box.set_text_color(gap, textColor)
-//         box.set_text_halign(gap, halign)
-//         box.set_text_valign(gap, demandValign)
-//     array.push(gaps, gap)
-
-// int qty3 = array.size(gaps)
-// for i = 0 to (qty3 > 0 ? qty3 - 1 : na)
-//     if i < array.size(gaps)
-//         box currentBox = array.get(gaps, i)
-//         float breakLevel = box.get_bottom(currentBox)
-//         if low < breakLevel
-//             array.remove(gaps, i)
-//             box.delete(currentBox)
-//             int(na)
-//         else
-//             box.set_right(currentBox, momentCTD)
-//             int(na)
-
 // initiation
 
-if display15m and str.tonumber(currentTimeframe) <= 15
-    createSupplyDemandZones('15')
 if display30m and str.tonumber(currentTimeframe) <= 30
     createSupplyDemandZones('30')
 if display45m and str.tonumber(currentTimeframe) <= 45
@@ -259,3 +187,29 @@ if displayD and str.tonumber(currentTimeframe) <= 1337
     createSupplyDemandZones('D')
 if displayW and str.tonumber(currentTimeframe) <= 1338
     createSupplyDemandZones('W')
+
+int qty = array.size(supply_HT)
+for i = 0 to (qty > 0 ? qty - 1 : na)
+    if i < array.size(supply_HT)
+        box currentBox = array.get(supply_HT, i)
+        float breakLevel = box.get_top(currentBox)
+        if high > breakLevel or high[1] > breakLevel or close > breakLevel
+            array.remove(supply_HT, i)
+            box.delete(currentBox)
+            int(na)
+        else
+            box.set_right(currentBox, momentCTD)
+            int(na)
+
+int qty2 = array.size(demand_HT)
+for i = 0 to (qty2 > 0 ? qty2 - 1 : na)
+    if i < array.size(demand_HT)
+        box currentBox = array.get(demand_HT, i)
+        float breakLevel = box.get_bottom(currentBox)
+        if low < breakLevel or low[1] < breakLevel or close < breakLevel
+            array.remove(demand_HT, i)
+            box.delete(currentBox)
+            int(na)
+        else
+            box.set_right(currentBox, momentCTD)
+            int(na)
