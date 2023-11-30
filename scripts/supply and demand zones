@@ -1,5 +1,5 @@
 //@version=5
-indicator("Supply and Demand Zones", shorttitle="S&D Zones", overlay=true, max_boxes_count = 500)
+indicator("Supply and Demand Zones", shorttitle="S&D Zones", overlay=true, max_boxes_count = 500, max_labels_count = 500)
 
 //inputs
 candleDifferenceScale = input.float(defval = 2, minval = 1, title = 'Zone Difference Scale', tooltip = 'The scale of how much a candle needs to be larger than a previous to be considered a zone. (candleChange / candleChange[1] > {value}, minimum value 1.00, default 2.0)', group = 'Zone Settings')
@@ -188,28 +188,28 @@ if displayD and str.tonumber(currentTimeframe) <= 1337
 if displayW and str.tonumber(currentTimeframe) <= 1338
     createSupplyDemandZones('W')
 
-int qty = array.size(supply_HT)
-for i = 0 to (qty > 0 ? qty - 1 : na)
-    if i < array.size(supply_HT)
-        box currentBox = array.get(supply_HT, i)
-        float breakLevel = box.get_top(currentBox)
-        if high > breakLevel or high[1] > breakLevel or close > breakLevel
-            array.remove(supply_HT, i)
-            box.delete(currentBox)
-            int(na)
-        else
-            box.set_right(currentBox, momentCTD)
-            int(na)
+i = 0
+while i < array.size(supply_HT) and array.size(supply_HT) > 0
+    box currentBox = array.get(supply_HT, i)
+    float breakLevel = box.get_top(currentBox)
+    if high > breakLevel 
+        array.remove(supply_HT, i)
+        box.delete(currentBox)
+        int(na)
+    else
+        box.set_right(currentBox, momentCTD)
+        i += 1
+        int(na)
 
-int qty2 = array.size(demand_HT)
-for i = 0 to (qty2 > 0 ? qty2 - 1 : na)
-    if i < array.size(demand_HT)
-        box currentBox = array.get(demand_HT, i)
-        float breakLevel = box.get_bottom(currentBox)
-        if low < breakLevel or low[1] < breakLevel or close < breakLevel
-            array.remove(demand_HT, i)
-            box.delete(currentBox)
-            int(na)
-        else
-            box.set_right(currentBox, momentCTD)
-            int(na)
+i2 = 0
+while i2 < array.size(demand_HT) and array.size(demand_HT) > 0
+    box currentBox = array.get(demand_HT, i2)
+    float breakLevel = box.get_bottom(currentBox)
+    if low < breakLevel 
+        array.remove(demand_HT, i2)
+        box.delete(currentBox)
+        int(na)
+    else
+        box.set_right(currentBox, momentCTD)
+        i2 += 1
+        int(na)
