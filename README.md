@@ -10,8 +10,6 @@ A script based off the same supply and demand concept by Bryce from Aurora tradi
 
 ![image](https://github.com/8pz/tradingview-scripts/assets/70970973/a5e607a9-e4a8-4bb5-82f4-a3f1b23065fb)
 
-**WARNING:** Zones are not updated live due to a bug. Refresh your page/script for newer zones to show.
-
 # Setup
 
 1. Open "Pine Editor"
