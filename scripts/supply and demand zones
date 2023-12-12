@@ -169,7 +169,10 @@ if displayD and str.tonumber(currentTimeframe) <= 1440
     createSupplyDemandZones('D')
 if displayW and str.tonumber(currentTimeframe) <= 10080
     createSupplyDemandZones('W')
-    // createSupplyDemandZones('M')
+    // createSupplyDemandZones('M') // enabling this will break replay mode
+
+// remove broken zones
+
 i = 0
 while i < array.size(supply_HT) and array.size(supply_HT) > 0
     box currentBox = array.get(supply_HT, i)
