@@ -1,5 +1,5 @@
 //@version=5
-indicator("Supply and Demand Zones", shorttitle="S&D Zones", overlay=true, max_boxes_count = 500, max_labels_count = 500)
+indicator("Supply and Demand Zones", shorttitle="S&D Zones", overlay=true, max_boxes_count = 500)
 
 //inputs
 candleDifferenceScale = input.float(defval = 2, minval = 1, title = 'Zone Difference Scale', tooltip = 'The scale of how much a candle needs to be larger than a previous to be considered a zone. (candleChange / candleChange[1] > {value}, minimum value 1.00, default 2.0)', group = 'Zone Settings')
@@ -123,16 +123,11 @@ createSupplyDemandZones(timeframe) =>
     var float topBox_HT = na
     momentCTD_HT = time(timeframe)[2]
 
-    if (((redCandle_HT and greenCandle_HT[1]) or (redCandle_HT and neutralCandle_HT[1])) and (candleChange_HT / candleChange_HT[1]) >= candleDifferenceScale and barstate.isconfirmed and supplyEnable and close_HT[1] >= close_HT)
-        if high_HT >= high_HT[1]
-            topBox_HT := high_HT
-        else 
-            topBox_HT := high_HT[1]
-
+    if (((redCandle_HT and greenCandle_HT[1]) or (redCandle_HT and neutralCandle_HT[1])) and (candleChange_HT / candleChange_HT[1]) >= candleDifferenceScale and barstate.isconfirmed[1] and supplyEnable and close_HT[1] >= close_HT and high_HT[1] > high_HT)
         if displayHL
             timeframeFormatted := timeframeFormatted + '\nTop: ' + str.tostring(topBox_HT) + '\nBottom: ' + str.tostring(open_HT[1])
 
-        box supply = box.new(left=momentCTD_HT, top=topBox_HT, right=momentCTD, bgcolor=supplyColor, bottom=open_HT[1], xloc=xloc.bar_time)
+        box supply = box.new(left=momentCTD_HT, top=high_HT[1], right=momentCTD, bgcolor=supplyColor, bottom=open_HT[1], xloc=xloc.bar_time)
         box.set_border_color(supply, supplyBorderColor)
         if textEnable
             box.set_text(supply, timeframeFormatted)
@@ -142,16 +137,11 @@ createSupplyDemandZones(timeframe) =>
             box.set_text_valign(supply, supplyValign)
         array.push(supply_HT, supply)
 
-    if (((greenCandle_HT and redCandle_HT[1]) or (greenCandle_HT and neutralCandle_HT[1])) and (candleChange_HT / candleChange_HT[1]) >= candleDifferenceScale and barstate.isconfirmed and demandEnable and close_HT[1] <= close_HT)
-        if low_HT <= low_HT[1]
-            bottomBox_HT := low_HT
-        else 
-            bottomBox_HT := low_HT[1]
-
+    if (((greenCandle_HT and redCandle_HT[1]) or (greenCandle_HT and neutralCandle_HT[1])) and (candleChange_HT / candleChange_HT[1]) >= candleDifferenceScale and barstate.isconfirmed[1] and demandEnable and close_HT[1] <= close_HT and low_HT[1] < low_HT)
         if displayHL
             timeframeFormatted := timeframeFormatted + '\nTop: ' + str.tostring(open_HT[1]) + '\nBottom: ' + str.tostring(bottomBox_HT)
 
-        box demand = box.new(left=momentCTD_HT, top=open_HT[1], right=momentCTD, bottom=bottomBox_HT, bgcolor=demandColor, xloc=xloc.bar_time)
+        box demand = box.new(left=momentCTD_HT, top=open_HT[1], right=momentCTD, bottom=low_HT[1], bgcolor=demandColor, xloc=xloc.bar_time)
         box.set_border_color(demand, demandBorderColor)
         if textEnable
             box.set_text(demand, timeframeFormatted)
@@ -161,7 +151,7 @@ createSupplyDemandZones(timeframe) =>
             box.set_text_valign(demand, demandValign)
         array.push(demand_HT, demand)
 
-// initiationa
+// initiation
 
 if display30m and str.tonumber(currentTimeframe) <= 30
     createSupplyDemandZones('30')
