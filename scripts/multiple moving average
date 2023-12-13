@@ -1,197 +1,109 @@
 //@version=5
-indicator("Supply and Demand Zones", shorttitle="S&D Zones", overlay=true, max_boxes_count = 500)
+//@version=5
+indicator("Multiple Moving Average", overlay = true)
 
-//inputs
-candleDifferenceScale = input.float(defval = 2, minval = 1, title = 'Zone Difference Scale', tooltip = 'The scale of how much a candle needs to be larger than a previous to be considered a zone. (candleChange / candleChange[1] > {value}, minimum value 1.00, default 2.0)', group = 'Zone Settings')
+showMA_1 = input(true, title = "", group = "Moving Averages", inline = "ma1")
+ma_type_1 = input.string("EMA", title="Type", options=["SMA", "EMA", "WMA", "HMA", "RMA", "VWMA", "VWAP"], group='Moving Averages', inline = "ma1")
+length_1 = input.int(19, title="Length", group='Moving Averages', inline = "ma1")
 
-zoneOffset = input.int(defval = 15, minval = 0, title="Zone Extension", group = 'Display Settings', tooltip = 'How much to extend zones to the right of latest bar. (In bars)')
-displayLowerTFZones = input.bool(false, title="Display Lower Timeframe Zones", group = 'Display Settings', tooltip = 'Whether to or not to display zones from a lower timeframe. ie. 2h zones on 4h timeframe (Recommended OFF).')
+showMA_2 = input(true, title = "", group = "Moving Averages", inline = "ma2")
+ma_type_2 = input.string("EMA", title="Type", options=["SMA", "EMA", "WMA", "HMA", "RMA", "VWMA", "VWAP"], group='Moving Averages', inline = "ma2")
+length_2 = input.int(200, title="Length", group='Moving Averages', inline = "ma2")
 
-supplyEnable = input(true, title = "Enable Supply Zones", group = "Zone Personalization")
-supplyColor = input.color(defval = color.rgb(242, 54, 69, 94), title = 'Supply Background Color', group = 'Zone Personalization')
-supplyBorderColor = input.color(defval = color.rgb(209, 212, 220, 90), title = 'Supply Border Color', group = 'Zone Personalization')
+showMA_3 = input(false, title = "", group = "Moving Averages", inline = "ma3")
+ma_type_3 = input.string("EMA", title="Type", options=["SMA", "EMA", "WMA", "HMA", "RMA", "VWMA", "VWAP"], group='Moving Averages', inline = "ma3")
+length_3 = input.int(1, title="Length", group='Moving Averages', inline = "ma3")
 
-demandEnable = input(true, title = "Enable Demand Zones", group = "Zone Personalization")
-demandColor = input.color(defval = color.rgb(76, 175, 80, 94), title = 'Demand Background Color', group = 'Zone Personalization')
-demandBorderColor = input.color(defval = color.rgb(209, 212, 220, 80), title = 'Demand Border Color', group = 'Zone Personalization')
+showMA_4 = input(false, title = "", group = "Moving Averages", inline = "ma4")
+ma_type_4 = input.string("EMA", title="Type", options=["SMA", "EMA", "WMA", "HMA", "RMA", "VWMA", "VWAP"], group='Moving Averages', inline = "ma4")
+length_4 = input.int(1, title="Length", group='Moving Averages', inline = "ma4")
 
-textEnable = input(true, title = "Display Text", group = 'Text Settings')
-displayHL = input.bool(false, title="Display High/Low", group = 'Text Settings', tooltip = 'Whether to or not to display the tops and bottoms of a zone as text. ie. Top: 4000.00 Bottom: 3900.00.')
-textColor = input.color(defval = color.rgb(255, 255, 255), title = 'Text Color', group = 'Text Settings')
-textSize = input.string("Small", title="Text Size", options=["Auto", "Tiny", "Small", "Normal", "Large", "Huge"], group = 'Text Settings')
-halign = input.string("Right", title="Horizontal Alignment", options=["Left", "Center", "Right"], group = 'Text Settings')
-supplyValign = input.string("Bottom", title="Vertical Alignment (Supply)", options=["Top", "Center", "Bottom"], group = 'Text Settings')
-demandValign = input.string("Top", title="Vertical Alignment (Demand)", options=["Top", "Center", "Bottom"], group = 'Text Settings')
+showMA_5 = input(false, title = "", group = "Moving Averages", inline = "ma5")
+ma_type_5 = input.string("EMA", title="Type", options=["SMA", "EMA", "WMA", "HMA", "RMA", "VWMA", "VWAP"], group='Moving Averages', inline = "ma5")
+length_5 = input.int(1, title="Length", group='Moving Averages', inline = "ma5")
 
-display30m = input.bool(true, title="Show 30m Zones", group = 'Timeframe Options')
-display45m = input.bool(true, title="Show 45m Zones", group = 'Timeframe Options')
-display1h = input.bool(true, title="Show 1h Zones", group = 'Timeframe Options')
-display2h = input.bool(true, title="Show 2h Zones", group = 'Timeframe Options')
-display3h = input.bool(true, title="Show 3h Zones", group = 'Timeframe Options')
-display4h = input.bool(true, title="Show 4h Zones", group = 'Timeframe Options')
-displayD = input.bool(false, title="Show Daily Zones", group = 'Timeframe Options')
-displayW = input.bool(false, title="Show Weekly Zones", group = 'Timeframe Options')
+ma_1 = ma_type_1 == "SMA" ? ta.sma(close, length_1) : ma_type_1 == "EMA" ? ta.ema(close, length_1) : ma_type_1 == "WMA" ? ta.wma(close, length_1) : ma_type_1 == "HMA" ? ta.hma(close, length_1) : ma_type_1 == "RMA" ? ta.rma(close, length_1) : ma_type_1 == "VWMA" ? ta.vwma(close, length_1) : ta.vwap(close, length_1)
+ma_2 = ma_type_2 == "SMA" ? ta.sma(close, length_2) : ma_type_2 == "EMA" ? ta.ema(close, length_2) : ma_type_2 == "WMA" ? ta.wma(close, length_2) : ma_type_2 == "HMA" ? ta.hma(close, length_2) : ma_type_2 == "RMA" ? ta.rma(close, length_2) : ma_type_2 == "VWMA" ? ta.vwma(close, length_2) : ta.vwap(close, length_2)
+ma_3 = ma_type_3 == "SMA" ? ta.sma(close, length_3) : ma_type_3 == "EMA" ? ta.ema(close, length_3) : ma_type_3 == "WMA" ? ta.wma(close, length_3) : ma_type_3 == "HMA" ? ta.hma(close, length_3) : ma_type_3 == "RMA" ? ta.rma(close, length_3) : ma_type_3 == "VWMA" ? ta.vwma(close, length_3) : ta.vwap(close, length_3)
+ma_4 = ma_type_4 == "SMA" ? ta.sma(close, length_4) : ma_type_4 == "EMA" ? ta.ema(close, length_4) : ma_type_4 == "WMA" ? ta.wma(close, length_4) : ma_type_4 == "HMA" ? ta.hma(close, length_4) : ma_type_4 == "RMA" ? ta.rma(close, length_4) : ma_type_4 == "VWMA" ? ta.vwma(close, length_4) : ta.vwap(close, length_4)
+ma_5 = ma_type_5 == "SMA" ? ta.sma(close, length_5) : ma_type_5 == "EMA" ? ta.ema(close, length_5) : ma_type_5 == "WMA" ? ta.wma(close, length_5) : ma_type_5 == "HMA" ? ta.hma(close, length_5) : ma_type_5 == "RMA" ? ta.rma(close, length_5) : ma_type_5 == "VWMA" ? ta.vwma(close, length_5) : ta.vwap(close, length_5)
 
-// variables
-currentTimeframe = timeframe.period
+plot(ma_1, title="MA 1", color=#b2ebf2, linewidth=1, display = showMA_1 ? display.all : display.none)
+plot(ma_2, title="MA 2", color=#e1bee7, linewidth=1, display = showMA_2 ? display.all : display.none)
+plot(ma_3, title="MA 3", color=color.green, linewidth=1, display = showMA_3 ? display.all : display.none)
+plot(ma_4, title="MA 4", color=color.orange, linewidth=1, display = showMA_4 ? display.all : display.none)
+plot(ma_5, title="MA 5", color=color.purple, linewidth=1, display = showMA_5 ? display.all : display.none)
 
-if currentTimeframe == 'D'
-    currentTimeframe := '1440'
-if currentTimeframe == 'W'
-    currentTimeframe := '10080'
-if displayLowerTFZones
-    currentTimeframe := '1'
+hideonDWM = input(false, title="Hide VWAP on 1D or Above", group="VWAP Settings")
+var anchor = input.string(defval = "Session", title="Anchor Period",
+ options=["Session", "Week", "Month", "Quarter", "Year", "Decade", "Century", "Earnings", "Dividends", "Splits"], group="VWAP Settings")
+src = input(title = "Source", defval = hlc3, group="VWAP Settings")
+offset = input.int(0, title="Offset", group="VWAP Settings", minval=0)
 
-momentCTD = math.round(time(timeframe.period) + (zoneOffset * 60000 * str.tonumber(currentTimeframe)))
+BANDS_GROUP = "Bands Settings"
+CALC_MODE_TOOLTIP = "Determines the units used to calculate the distance of the bands. When 'Percentage' is selected, a multiplier of 1 means 1%."
+calcModeInput = input.string("Standard Deviation", "Bands Calculation Mode", options = ["Standard Deviation", "Percentage"], group = BANDS_GROUP, tooltip = CALC_MODE_TOOLTIP)
+showBand_1 = input(true, title = "", group = BANDS_GROUP, inline = "band_1")
+bandMult_1 = input.float(1.0, title = "Bands Multiplier #1", group = BANDS_GROUP, inline = "band_1", step = 0.5, minval=0)
+showBand_2 = input(false, title = "", group = BANDS_GROUP, inline = "band_2")
+bandMult_2 = input.float(2.0, title = "Bands Multiplier #2", group = BANDS_GROUP, inline = "band_2", step = 0.5, minval=0)
+showBand_3 = input(false, title = "", group = BANDS_GROUP, inline = "band_3")
+bandMult_3 = input.float(3.0, title = "Bands Multiplier #3", group = BANDS_GROUP, inline = "band_3", step = 0.5, minval=0)
 
-if textSize == 'Auto'
-    textSize := size.auto
-if textSize == 'Tiny'
-    textSize := size.tiny
-if textSize == 'Small'
-    textSize := size.small
-if textSize == 'Normal'
-    textSize := size.normal
-if textSize == 'Large'
-    textSize := size.large
-if textSize == 'Huge'
-    textSize := size.huge
+if barstate.islast and ta.cum(volume) == 0
+    runtime.error("No volume is provided by the data vendor.")
 
-if halign == 'Left'
-    halign := text.align_left
-if halign == 'Center'
-    halign := text.align_center
-if halign == 'Right'
-    halign := text.align_right
+new_earnings = request.earnings(syminfo.tickerid, earnings.actual, barmerge.gaps_on, barmerge.lookahead_on, ignore_invalid_symbol=true)
+new_dividends = request.dividends(syminfo.tickerid, dividends.gross, barmerge.gaps_on, barmerge.lookahead_on, ignore_invalid_symbol=true)
+new_split = request.splits(syminfo.tickerid, splits.denominator, barmerge.gaps_on, barmerge.lookahead_on, ignore_invalid_symbol=true)
 
-if supplyValign == 'Bottom'
-    supplyValign := text.align_bottom
-if supplyValign == 'Center'
-    supplyValign := text.align_center
-if supplyValign == 'Top'
-    supplyValign := text.align_top
+isNewPeriod = switch anchor
+	"Earnings"  => not na(new_earnings)
+	"Dividends" => not na(new_dividends)
+	"Splits"    => not na(new_split)
+	"Session"   => timeframe.change("D")
+	"Week"      => timeframe.change("W")
+	"Month"     => timeframe.change("M")
+	"Quarter"   => timeframe.change("3M")
+	"Year"      => timeframe.change("12M")
+	"Decade"    => timeframe.change("12M") and year % 10 == 0
+	"Century"   => timeframe.change("12M") and year % 100 == 0
+	=> false
 
-if demandValign == 'Bottom'
-    demandValign := text.align_bottom
-if demandValign == 'Center'
-    demandValign := text.align_center
-if demandValign == 'Top'
-    demandValign := text.align_top
+isEsdAnchor = anchor == "Earnings" or anchor == "Dividends" or anchor == "Splits"
+if na(src[1]) and not isEsdAnchor
+	isNewPeriod := true
 
-var box[] supply_HT = array.new_box()
-var box[] demand_HT = array.new_box()
+float vwapValue = na
+float upperBandValue1 = na
+float lowerBandValue1 = na
+float upperBandValue2 = na
+float lowerBandValue2 = na
+float upperBandValue3 = na
+float lowerBandValue3 = na
 
-//plotting zones
+if not (hideonDWM and timeframe.isdwm)
+    [_vwap, _stdevUpper, _] = ta.vwap(src, isNewPeriod, 1)
+	vwapValue := _vwap
+    stdevAbs = _stdevUpper - _vwap
+	bandBasis = calcModeInput == "Standard Deviation" ? stdevAbs : _vwap * 0.01
+	upperBandValue1 := _vwap + bandBasis * bandMult_1
+	lowerBandValue1 := _vwap - bandBasis * bandMult_1
+	upperBandValue2 := _vwap + bandBasis * bandMult_2
+	lowerBandValue2 := _vwap - bandBasis * bandMult_2
+	upperBandValue3 := _vwap + bandBasis * bandMult_3
+	lowerBandValue3 := _vwap - bandBasis * bandMult_3
 
-createSupplyDemandZones(timeframe) =>
+plot(vwapValue, title="VWAP", color=#2962FF, offset=offset)
 
-    [open_HT, high_HT, low_HT, close_HT] = request.security(syminfo.tickerid, timeframe, [open[1], high[1], low[1], close[1]], lookahead = barmerge.lookahead_on)
+upperBand_1 = plot(upperBandValue1, title="Upper Band #1", color=color.green, offset=offset, display = showBand_1 ? display.all : display.none)
+lowerBand_1 = plot(lowerBandValue1, title="Lower Band #1", color=color.green, offset=offset, display = showBand_1 ? display.all : display.none)
+fill(upperBand_1, lowerBand_1, title="Bands Fill #1", color= color.new(color.green, 95)    , display = showBand_1 ? display.all : display.none)
 
-    var timeframeFormatted = ''
+upperBand_2 = plot(upperBandValue2, title="Upper Band #2", color=color.olive, offset=offset, display = showBand_2 ? display.all : display.none)
+lowerBand_2 = plot(lowerBandValue2, title="Lower Band #2", color=color.olive, offset=offset, display = showBand_2 ? display.all : display.none)
+fill(upperBand_2, lowerBand_2, title="Bands Fill #2", color= color.new(color.olive, 95)    , display = showBand_2 ? display.all : display.none)
 
-    if timeframe == '1'
-        timeframeFormatted := '1m'
-    else if timeframe == '3'
-        timeframeFormatted := '3m'
-    else if timeframe == '5'
-        timeframeFormatted := '5m'
-    else if timeframe == '15'
-        timeframeFormatted := '15m'
-    else if timeframe == '30'
-        timeframeFormatted := '30m'
-    else if timeframe == '45'
-        timeframeFormatted := '45m'
-    else if timeframe == '60'
-        timeframeFormatted := '1h'
-    else if timeframe == '120'
-        timeframeFormatted := '2h'
-    else if timeframe == '180'
-        timeframeFormatted := '3h'
-    else if timeframe == '240'
-        timeframeFormatted := '4h'
-    else if timeframe == 'D'
-        timeframeFormatted := 'D'
-    else if timeframe == 'W'
-        timeframeFormatted := 'W'
-
-    redCandle_HT = close_HT < open_HT
-    greenCandle_HT = close_HT > open_HT
-    neutralCandle_HT = close_HT == open_HT
-    candleChange_HT = math.abs(close_HT - open_HT)
-
-    var float bottomBox_HT = na
-    var float topBox_HT = na
-    momentCTD_HT = time(timeframe)[2]
-
-    if (((redCandle_HT and greenCandle_HT[1]) or (redCandle_HT and neutralCandle_HT[1])) and (candleChange_HT / candleChange_HT[1]) >= candleDifferenceScale and barstate.isconfirmed[1] and supplyEnable and close_HT[1] >= close_HT and high_HT[1] > high_HT)
-        if displayHL
-            timeframeFormatted := timeframeFormatted + '\nTop: ' + str.tostring(topBox_HT) + '\nBottom: ' + str.tostring(open_HT[1])
-
-        box supply = box.new(left=momentCTD_HT, top=high_HT[1], right=momentCTD, bgcolor=supplyColor, bottom=open_HT[1], xloc=xloc.bar_time)
-        box.set_border_color(supply, supplyBorderColor)
-        if textEnable
-            box.set_text(supply, timeframeFormatted)
-            box.set_text_size(supply, textSize)
-            box.set_text_color(supply, textColor)
-            box.set_text_halign(supply, halign)
-            box.set_text_valign(supply, supplyValign)
-        array.push(supply_HT, supply)
-
-    if (((greenCandle_HT and redCandle_HT[1]) or (greenCandle_HT and neutralCandle_HT[1])) and (candleChange_HT / candleChange_HT[1]) >= candleDifferenceScale and barstate.isconfirmed[1] and demandEnable and close_HT[1] <= close_HT and low_HT[1] < low_HT)
-        if displayHL
-            timeframeFormatted := timeframeFormatted + '\nTop: ' + str.tostring(open_HT[1]) + '\nBottom: ' + str.tostring(bottomBox_HT)
-
-        box demand = box.new(left=momentCTD_HT, top=open_HT[1], right=momentCTD, bottom=low_HT[1], bgcolor=demandColor, xloc=xloc.bar_time)
-        box.set_border_color(demand, demandBorderColor)
-        if textEnable
-            box.set_text(demand, timeframeFormatted)
-            box.set_text_size(demand, textSize)
-            box.set_text_color(demand, textColor)
-            box.set_text_halign(demand, halign)
-            box.set_text_valign(demand, demandValign)
-        array.push(demand_HT, demand)
-
-// initiation
-
-if display30m and str.tonumber(currentTimeframe) <= 30
-    createSupplyDemandZones('30')
-if display45m and str.tonumber(currentTimeframe) <= 45
-    createSupplyDemandZones('45')
-if display1h and str.tonumber(currentTimeframe) <= 60
-    createSupplyDemandZones('60') 
-if display2h and str.tonumber(currentTimeframe) <= 120
-    createSupplyDemandZones('120')
-if display3h and str.tonumber(currentTimeframe) <= 180
-    createSupplyDemandZones('180')
-if display4h and str.tonumber(currentTimeframe) <= 240
-    createSupplyDemandZones('240')
-if displayD and str.tonumber(currentTimeframe) <= 1440
-    createSupplyDemandZones('D')
-if displayW and str.tonumber(currentTimeframe) <= 10080
-    createSupplyDemandZones('W')
-    // createSupplyDemandZones('M')
-i = 0
-while i < array.size(supply_HT) and array.size(supply_HT) > 0
-    box currentBox = array.get(supply_HT, i)
-    float breakLevel = box.get_top(currentBox)
-    if high > breakLevel 
-        array.remove(supply_HT, i)
-        box.delete(currentBox)
-        int(na)
-    else
-        box.set_right(currentBox, momentCTD)
-        i += 1
-        int(na)
-
-i2 = 0
-while i2 < array.size(demand_HT) and array.size(demand_HT) > 0
-    box currentBox = array.get(demand_HT, i2)
-    float breakLevel = box.get_bottom(currentBox)
-    if low < breakLevel 
-        array.remove(demand_HT, i2)
-        box.delete(currentBox)
-        int(na)
-    else
-        box.set_right(currentBox, momentCTD)
-        i2 += 1
-        int(na)
+upperBand_3 = plot(upperBandValue3, title="Upper Band #3", color=color.teal, offset=offset, display = showBand_3 ? display.all : display.none)
+lowerBand_3 = plot(lowerBandValue3, title="Lower Band #3", color=color.teal, offset=offset, display = showBand_3 ? display.all : display.none)
+fill(upperBand_3, lowerBand_3, title="Bands Fill #3", color= color.new(color.teal, 95)    , display = showBand_3 ? display.all : display.none)
