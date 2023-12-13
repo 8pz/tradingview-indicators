@@ -6,9 +6,12 @@
 ### [Multiple Moving Average](https://github.com/8pz/tradingview-scripts/blob/main/scripts/multiple%20moving%20average) 
 A simple script to plot 5 different moving averages. (SMA, EMA, WMA, HMA, RMA, VWMA, VWAP)
 
+![image](https://github.com/8pz/tradingview-scripts/assets/70970973/875a0395-483f-487b-9c01-3efceefd0ebf)
 
 ### [Supply and Demand Zones](https://github.com/8pz/tradingview-scripts/blob/main/scripts/supply%20and%20demand)
 A script based off the same supply and demand concept by Bryce from Aurora trading. 
+
+![image](https://github.com/8pz/tradingview-scripts/assets/70970973/943daad4-ef51-4b00-892a-0cc2a065b83b)
 
 # Setup
 
