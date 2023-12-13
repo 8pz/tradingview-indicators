@@ -1,4 +1,4 @@
-[Indicators](https://github.com/8pz/tradingview-scripts?tab=readme-ov-file#indicators) • [Setup](https://github.com/8pz/tradingview-scripts?tab=readme-ov-file#setup) • [Disclaimer](https://github.com/8pz/tradingview-scripts?tab=readme-ov-file#disclaimer) • [License](https://github.com/8pz/tradingview-scripts?tab=readme-ov-file#license)
+[Indicators](https://github.com/8pz/tradingview-indicators?tab=readme-ov-file#indicators) • [Setup](https://github.com/8pz/tradingview-indicators?tab=readme-ov-file#setup) • [Disclaimer](https://github.com/8pz/tradingview-indicators?tab=readme-ov-file#disclaimer) • [License](https://github.com/8pz/tradingview-indicators?tab=readme-ov-file#license)
 
 
 # Indicators
