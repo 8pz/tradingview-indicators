@@ -23,6 +23,7 @@ halign = input.string("Right", title="Horizontal Alignment", options=["Left", "C
 supplyValign = input.string("Bottom", title="Vertical Alignment (Supply)", options=["Top", "Center", "Bottom"], group = 'Text Settings')
 demandValign = input.string("Top", title="Vertical Alignment (Demand)", options=["Top", "Center", "Bottom"], group = 'Text Settings')
 
+# displayFormingZones = input.bool(true, title="Show Forming Fones", group = 'Timeframe Options', tooltip = 'Shows potential zones that have not closed to form yet')
 display30m = input.bool(true, title="Show 30m Zones", group = 'Timeframe Options')
 display45m = input.bool(true, title="Show 45m Zones", group = 'Timeframe Options')
 display1h = input.bool(true, title="Show 1h Zones", group = 'Timeframe Options')

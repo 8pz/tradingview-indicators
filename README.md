@@ -1,15 +1,17 @@
-[Indicators](https://github.com/8pz/tradingview-indicators?tab=readme-ov-file#indicators) • [Setup](https://github.com/8pz/tradingview-indicators?tab=readme-ov-file#setup) • [Disclaimer](https://github.com/8pz/tradingview-indicators?tab=readme-ov-file#disclaimer) • [License](https://github.com/8pz/tradingview-indicators?tab=readme-ov-file#license)
-
 
 # Indicators
 
+[Setup](https://github.com/8pz/tradingview-indicators?tab=readme-ov-file#setup) • [Disclaimer](https://github.com/8pz/tradingview-indicators?tab=readme-ov-file#disclaimer) • [License](https://github.com/8pz/tradingview-indicators?tab=readme-ov-file#license)
+
+A collection of the indicators I use on Tradingview.
+
 ### [Multiple Moving Average](https://github.com/8pz/tradingview-indicators/blob/main/scripts/multiple%20moving%20average) 
-A simple script to plot 5 different moving averages. (SMA, EMA, WMA, HMA, RMA, VWMA, VWAP)
+A simple script to plot 5 (SMA, EMA, WMA, HMA, RMA) different moving averages and VWAP.
 
 ![image](https://github.com/8pz/tradingview-scripts/assets/70970973/875a0395-483f-487b-9c01-3efceefd0ebf)
 
 ### [Supply and Demand Zones](https://github.com/8pz/tradingview-indicators/blob/main/scripts/supply%20and%20demand%20zones)
-A script based off the same supply and demand concept by Bryce from Aurora trading. 
+A script based off the same supply and demand concept by Bryce from Aurora trading. Does not include all parts of original features/concept.
 
 ![image](https://github.com/8pz/tradingview-scripts/assets/70970973/943daad4-ef51-4b00-892a-0cc2a065b83b)
 
